@@ -2,13 +2,17 @@ const express=require("express")
 const mongoose=require('mongoose')
 const cors=require("cors")
 const RegisterModel=require('./models/db')
+const dotenv = require('dotenv');
 
+dotenv.config()
+
+const BASE_URL=process.env.DATABASE_URL
 const app=express()
 app.use(express.json())
 app.use(cors())
 
 mongoose.connect(
-    "mongodb://localhost:27017/Registration",
+  BASE_URL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -47,7 +51,7 @@ mongoose.connect(
   });
   
   // Start the server
-  const PORT = process.env.PORT || 4000;
+  const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
